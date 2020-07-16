@@ -16,7 +16,7 @@ function App() {
         <Header />
         <Banner />
         <Switch>
-          <Route path="/ " component={Home} />
+          <Route path="/" exact component={Home} />
           <Route path="/contacts.html" component={Contacts} />
           <Route path="/about.html" component={About} />
           <Route path="/catalog.html" component={Catalog} />
