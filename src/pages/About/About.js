@@ -1,5 +1,4 @@
 import React from "react";
-import banner from "../../img/banner.jpg";
 
 function About() {
   return (

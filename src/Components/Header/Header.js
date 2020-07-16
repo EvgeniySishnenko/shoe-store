@@ -8,18 +8,14 @@ function Header() {
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
-            <NavLink activeClassName="active" className="navbar-brand" to="/ ">
+            <NavLink activeClassName="active" className="navbar-brand" to="/">
               <img src={logo} alt="Bosa Noga" />
             </NavLink>
 
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <NavLink
-                    activeClassName="active"
-                    className="nav-link"
-                    to="/ "
-                  >
+                  <NavLink activeClassName="active" className="nav-link" to="/">
                     Главная
                   </NavLink>
                 </li>
