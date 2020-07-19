@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Contacts from "./pages/Contacts/Contacts";
 import About from "./pages/About/About";
-import Catalog from "./pages/Catalog/Catalog";
+import CatalogPage from "./pages/Catalog/CatalogPage";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
-import Page404 from "./Components/Page404/Page404";
+import Page404 from "./pages/Page404/Page404";
 import Banner from "./Components/Banner/Banner";
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/contacts.html" component={Contacts} />
           <Route path="/about.html" component={About} />
-          <Route path="/catalog.html" component={Catalog} />
+          <Route path="/catalog.html" component={CatalogPage} />
           <Route component={Page404} />
         </Switch>
         <Footer />

@@ -263,8 +263,15 @@ section {
 }
 
 /* Bootstrap */
-.nav-link.active {
+.nav-link.active,
+button.nav-link.active {
   color: #ff0000;
+}
+button.nav-link {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 h2,
