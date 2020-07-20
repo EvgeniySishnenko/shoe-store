@@ -109,6 +109,7 @@ export const searchGetShoes = (value) => async (dispatch) => {
       throw new Error(response.statusText);
     }
     const data = await response.json();
+
     dispatch(fetchShoesSuccess(data));
   } catch (e) {
     dispatch(fetchShoesFailure(e.message));

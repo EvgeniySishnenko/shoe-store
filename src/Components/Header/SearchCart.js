@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changeSearchField } from "../../actions/search";
+import { searchGetShoes } from "../../actions/catalog";
 import Cart from "./Cart";
 function SearchCart() {
   const history = useHistory();
@@ -20,21 +21,24 @@ function SearchCart() {
     });
   };
   const showInput = () => {
-    if (input.value.length === 0) {
+    if (input.value.trim() === "") {
       setInvisible({
         invisible: !invisible.invisible,
       });
     } else {
       dispatch(changeSearchField(input.value));
+      dispatch(searchGetShoes(input.value));
       setInvisible({
         invisible: !invisible.invisible,
       });
-      setInput({
-        value: "",
-      });
+
       history.push("/catalog.html");
     }
+    setInput({
+      value: "",
+    });
   };
+
   return (
     <div>
       <div className="header-controls-pics">

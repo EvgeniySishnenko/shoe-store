@@ -23,7 +23,9 @@ function Catalog(props) {
   const history = useHistory();
   const { pathname } = history.location;
   useEffect(() => {
-    dispatch(fetchAllCatalog());
+    if (items.length === 0) {
+      dispatch(fetchAllCatalog());
+    }
   }, [dispatch]);
 
   const moreShoesBtn = () => {
@@ -47,6 +49,7 @@ function Catalog(props) {
   if (error) {
     return <p className="text-center">Something went wrong try again</p>;
   }
+
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
