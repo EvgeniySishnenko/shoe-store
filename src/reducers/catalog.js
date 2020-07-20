@@ -3,6 +3,7 @@ import {
   FETCH_SHOES_FAILURE,
   FETCH_SHOES_SUCCESS,
   MORE_SHOES_SUCCESS,
+  // SEARCH_GET_SHOES,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -48,6 +49,8 @@ export default function catalogReducer(state = initialState, action) {
         offset: offset + 6,
         showBtn: action.payload.items.length >= 6,
       };
+    // case SEARCH_GET_SHOES:
+    //   const items = action.payload;
     default:
       return state;
   }

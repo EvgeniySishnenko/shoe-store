@@ -1,6 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllCatalog, moreShoes } from "../../actions/catalog";
+import { useHistory } from "react-router-dom";
+
+import {
+  fetchAllCatalog,
+  moreShoes,
+  searchGetShoes,
+} from "../../actions/catalog";
+import { changeSearchField } from "../../actions/search";
+import { addCategoryUseRef } from "../../actions/categories";
 import Categories from "../Categories/Categories";
 import Card from "../Card/Card";
 import Preloader from "../Preloader/Preloader";
@@ -10,23 +18,53 @@ function Catalog(props) {
     (state) => state.catalog
   );
   const { category } = useSelector((state) => state.categories);
+  const { value } = useSelector((state) => state.search);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { pathname } = history.location;
   useEffect(() => {
     dispatch(fetchAllCatalog());
   }, [dispatch]);
 
   const moreShoesBtn = () => {
-    dispatch(moreShoes(category, offset));
+    dispatch(moreShoes(category, offset, value));
   };
+  const handleChange = (evt) => {
+    const { value } = evt.target;
+    dispatch(changeSearchField(value));
+  };
+  const handleSubmit = useCallback(
+    async (evt) => {
+      evt.preventDefault();
+      const { value } = evt.target.search_shoes;
+      if (value.trim() !== "") {
+        dispatch(searchGetShoes(value.trim()));
+        dispatch(addCategoryUseRef("all"));
+      }
+    },
+    [dispatch, value]
+  );
   if (error) {
     return <p className="text-center">Something went wrong try again</p>;
   }
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
-      <form className="catalog-search-form form-inline">
-        <input className="form-control" placeholder="Поиск" />
-      </form>
+      {pathname !== "/" && (
+        <form
+          onSubmit={handleSubmit}
+          className="catalog-search-form form-inline"
+        >
+          <input
+            className="form-control"
+            onChange={handleChange}
+            placeholder="Поиск"
+            value={value}
+            name="search_shoes"
+          />
+        </form>
+      )}
+
       <Categories />
       <div className="row">
         {loading ? (

@@ -29,6 +29,8 @@ export const moreShoesSuccess = (items, offset) => ({
     offset,
   },
 });
+
+// поиск всех товаров. Запускается при  загрузки страницы
 export const fetchAllCatalog = () => async (dispatch) => {
   dispatch(fetchShoesRequest());
   try {
@@ -46,6 +48,7 @@ export const fetchAllCatalog = () => async (dispatch) => {
   }
 };
 
+// фильтр. Запускается при клике на категории. Делает запрос и отображает выбранную
 export const fetchFilterCatalog = (category) => async (dispatch) => {
   let path;
   if (category === "all") {
@@ -68,10 +71,11 @@ export const fetchFilterCatalog = (category) => async (dispatch) => {
     dispatch(fetchShoesFailure(e.message));
   }
 };
-export const moreShoes = (category, offset) => async (dispatch) => {
+// Реагирует на нажатие показать еще.
+export const moreShoes = (category, offset, value) => async (dispatch) => {
   let path;
   if (category === "all") {
-    path = `items?offset=${offset}`;
+    path = `items?${value !== "" ? "q=" + value + "&" : ""}offset=${offset}`;
   } else {
     path = `items?categoryId=${category}&offset=${offset}`;
   }
@@ -86,6 +90,26 @@ export const moreShoes = (category, offset) => async (dispatch) => {
     }
     const data = await response.json();
     dispatch(moreShoesSuccess(data, offset));
+  } catch (e) {
+    dispatch(fetchShoesFailure(e.message));
+  }
+};
+// Реагирует на строку поиска в каталоге
+export const searchGetShoes = (value) => async (dispatch) => {
+  dispatch(fetchShoesRequest());
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/items?q=${value}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const data = await response.json();
+    dispatch(fetchShoesSuccess(data));
   } catch (e) {
     dispatch(fetchShoesFailure(e.message));
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Bestseller from "../../Components/Bestseller/Bestseller";
 import Catalog from "../../Components/Catalog/Catalog";
 function Home() {
