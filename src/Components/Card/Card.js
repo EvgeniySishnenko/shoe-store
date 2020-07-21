@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Card({ item }) {
   return (
@@ -12,9 +13,12 @@ function Card({ item }) {
         <div className="card-body">
           <p className="card-text">{item.title}</p>
           <p className="card-text">{item.price} руб.</p>
-          <a href="/products/1.html" className="btn btn-outline-primary">
+          <Link
+            to={`/catalog/${item.id}.html`}
+            className="btn btn-outline-primary"
+          >
             Заказать
-          </a>
+          </Link>
         </div>
       </div>
     </div>
