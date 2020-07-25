@@ -15,8 +15,7 @@ function Order() {
   const handleForm = (e) => {
     e.preventDefault();
     const checked = e.target.agreement.checked;
-    // if (checked && items.length !== 0) {
-    if (checked) {
+    if (checked && items.length !== 0) {
       //   const newArr = items.map((it) => {
       //     const { title, size, ...otherKeys } = it;
       //     return otherKeys;
