@@ -8,6 +8,7 @@ import ProductsPage from "./pages/Catalog/ProductsPage";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import Page404 from "./pages/Page404/Page404";
+import CartPage from "./pages/Cart/CartPage";
 import Banner from "./Components/Banner/Banner";
 
 function App() {
@@ -18,11 +19,13 @@ function App() {
         <Banner />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/contacts.html" component={Contacts} />
-          <Route path="/about.html" component={About} />
-          <Route path="/catalog.html" component={CatalogPage} />
-          <Route path="/catalog/:id.html" component={ProductsPage} />
-          <Route component={Page404} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/about" component={About} />
+          <Route path="/cart" component={CartPage} />
+          <Route path="/catalog/:id" component={ProductsPage} />
+          <Route path="/catalog" component={CatalogPage} />
+
+          <Route path="*" component={Page404} />
         </Switch>
         <Footer />
       </Router>

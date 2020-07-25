@@ -1,6 +1,6 @@
 import React from "react";
 import Products from "../../Components/Catalog/Products";
-function ProductsPage() {
+function ProductsPage(props) {
   return (
     <main className="container">
       <div className="row">

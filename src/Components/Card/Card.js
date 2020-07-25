@@ -13,10 +13,7 @@ function Card({ item }) {
         <div className="card-body">
           <p className="card-text">{item.title}</p>
           <p className="card-text">{item.price} руб.</p>
-          <Link
-            to={`/catalog/${item.id}.html`}
-            className="btn btn-outline-primary"
-          >
+          <Link to={`/catalog/${item.id}`} className="btn btn-outline-primary">
             Заказать
           </Link>
         </div>

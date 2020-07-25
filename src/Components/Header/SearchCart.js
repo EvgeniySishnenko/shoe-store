@@ -32,7 +32,7 @@ function SearchCart() {
         invisible: !invisible.invisible,
       });
 
-      history.push("/catalog.html");
+      history.push("/catalog");
     }
     setInput({
       value: "",
