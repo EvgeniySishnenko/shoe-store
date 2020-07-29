@@ -14,7 +14,7 @@ import Card from "../Card/Card";
 import Preloader from "../Preloader/Preloader";
 import More from "../More/More";
 function Catalog(props) {
-  const { items, loading, error, offset, showBtn } = useSelector(
+  const { items, loading, offset, showBtn } = useSelector(
     (state) => state.catalog
   );
   const { category } = useSelector((state) => state.categories);
@@ -46,9 +46,6 @@ function Catalog(props) {
     },
     [dispatch, value]
   );
-  if (error) {
-    return <p className="text-center">Something went wrong try again</p>;
-  }
 
   return (
     <section className="catalog">

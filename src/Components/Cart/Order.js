@@ -35,7 +35,6 @@ function Order() {
       dispatch(fetchOrder(body));
     }
   };
-  console.log(error, message);
   return (
     <section className="order">
       <h2 className="text-center">Оформить заказ</h2>
