@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToCart, removeProductCart } from "../../actions/cart";
+import { addToCart, removeProductCart, updateCart } from "../../actions/cart";
 
 function Cart() {
   const dispatch = useDispatch();
   const { items, totalPrice } = useSelector((state) => state.cart);
   useEffect(() => {
-    dispatch(addToCart());
+    dispatch(updateCart());
   }, [dispatch]);
   const removeProductCart1 = (e) => {
     e.preventDefault();
     let id = e.target.dataset.id;
-    dispatch(removeProductCart(id));
+    dispatch(removeProductCart(id, items));
   };
   return (
     <section className="cart">

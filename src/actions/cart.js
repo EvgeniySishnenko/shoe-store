@@ -22,25 +22,59 @@ export const fetchCartSuccess = () => ({
 export const fetchCartFailure = () => ({
   type: FETCH_CART_FAILURE,
 });
-export const addToCart = () => async (dispatch) => {
-  let arr =
-    JSON.parse(localStorage.getItem("cart")) !== null
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
-  dispatch(updateCart(arr));
-};
-export const removeProductCart = (id) => (dispatch) => {
-  let arr =
-    JSON.parse(localStorage.getItem("cart")) !== null
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
-  const res = arr.filter((arr) => arr.id !== Number(id));
-
-  dispatch(updateCart(res));
-};
-export const updateCart = (
-  arr = JSON.parse(localStorage.getItem("cart"))
+export const addToCart = (
+  items,
+  item,
+  counter,
+  size,
+  avalible,
+  history
 ) => async (dispatch) => {
+  if (size !== "" && avalible !== undefined) {
+    if (items.length !== 0) {
+      const index = items.findIndex((el) => {
+        return el.id === item.id && el.size === size;
+      });
+      if (index >= 0) {
+        items[index]["count"] += counter.counter;
+      } else {
+        items = [
+          ...items,
+          {
+            id: item.id,
+            title: item.title,
+            size: size,
+            count: counter.counter,
+            price: item.price,
+          },
+        ];
+      }
+    } else {
+      items = [
+        {
+          id: item.id,
+          title: item.title,
+          size: size,
+          count: counter.counter,
+          price: item.price,
+        },
+      ];
+    }
+    localStorage.setItem("cart", JSON.stringify(items));
+
+    history.push("/cart");
+  }
+};
+export const removeProductCart = (id, items) => (dispatch) => {
+  const res = items.filter((item) => item.id !== Number(id));
+  localStorage.setItem("cart", JSON.stringify(res));
+  dispatch(updateCart());
+};
+export const updateCart = () => async (dispatch) => {
+  let arr =
+    JSON.parse(localStorage.getItem("cart")) !== null
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
   let totalCount = 0;
   let totalPrice = 0;
   arr !== null &&

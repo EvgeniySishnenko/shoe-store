@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
-
+import { bestseller } from "../../api";
 function Bestseller() {
   const [items, setItems] = useState({
     items: [],
@@ -12,30 +12,23 @@ function Bestseller() {
       ...items,
       loading: true,
     });
-    fetch(`${process.env.REACT_APP_API_URL}/top-sales`, {
-      method: "GET",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then((result) => {
+    const getBestseller = (result, error) => {
+      if (result) {
         setItems({
           ...items,
           items: result,
           loading: false,
           error: null,
         });
-      })
-      .catch((error) => {
+      } else {
         setItems({
           ...items,
           loading: false,
           error,
         });
-      });
+      }
+    };
+    bestseller(getBestseller);
   }, []);
   if (items.error) {
     return <p className="text-center">Something went wrong try again</p>;

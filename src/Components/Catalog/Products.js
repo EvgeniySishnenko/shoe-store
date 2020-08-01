@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { fetchProducts } from "../../actions/products";
+import { addToCart } from "../../actions/cart";
+
 import Table from "./Table";
 import Counter from "./Counter";
 import Sizes from "./Sizes";
@@ -11,7 +13,7 @@ import Preloader from "../Preloader/Preloader";
 function Products(props) {
   const routeMatch = useRouteMatch();
   const history = useHistory();
-
+  const { items } = useSelector((state) => state.cart);
   const [size, setSize] = useState({
     size: "",
   });
@@ -21,10 +23,7 @@ function Products(props) {
   const { item, loading, error } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   let avalible;
-  let arr =
-    JSON.parse(localStorage.getItem("cart")) !== null
-      ? JSON.parse(localStorage.getItem("cart"))
-      : [];
+
   // localStorage.clear();
 
   useEffect(() => {
@@ -52,42 +51,8 @@ function Products(props) {
       });
     }
   };
-  const addToCart = (e) => {
-    // e.preventDefault();
-    if (size.size !== "" && avalible !== undefined) {
-      if (arr.length !== 0) {
-        const index = arr.findIndex((el) => {
-          return el.id === item.id && el.size === size.size;
-        });
-
-        if (index >= 0) {
-          arr[index]["count"] += counter.counter;
-        } else {
-          arr = [
-            ...arr,
-            {
-              id: item.id,
-              title: item.title,
-              size: size.size,
-              count: counter.counter,
-              price: item.price,
-            },
-          ];
-        }
-      } else {
-        arr = [
-          {
-            id: item.id,
-            title: item.title,
-            size: size.size,
-            count: counter.counter,
-            price: item.price,
-          },
-        ];
-      }
-      localStorage.setItem("cart", JSON.stringify(arr));
-      history.push("/cart");
-    }
+  const addToCartFn = () => {
+    dispatch(addToCart(items, item, counter, size.size, avalible, history));
   };
   return (
     <section className="catalog-item">
@@ -119,7 +84,7 @@ function Products(props) {
               </div>
               {avalible !== undefined && (
                 <button
-                  onClick={addToCart}
+                  onClick={addToCartFn}
                   disabled={size.size !== "" ? false : true}
                   className="btn btn-danger btn-block btn-lg"
                 >

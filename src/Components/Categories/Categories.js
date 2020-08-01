@@ -4,9 +4,7 @@ import { fetchCategories, addCategoryUseRef } from "../../actions/categories";
 import { fetchFilterCatalog } from "../../actions/catalog";
 
 function Categories() {
-  const { items, loading, error, category } = useSelector(
-    (state) => state.categories
-  );
+  const { items, loading, category } = useSelector((state) => state.categories);
   const dispatch = useDispatch();
   const catRef = useRef();
 
@@ -25,9 +23,7 @@ function Categories() {
       dispatch(addCategoryUseRef(e.target.value));
     }
   };
-  if (error) {
-    return <p className="text-center">Something went wrong try again</p>;
-  }
+
   return (
     <ul className="catalog-categories nav justify-content-center">
       {loading ? (

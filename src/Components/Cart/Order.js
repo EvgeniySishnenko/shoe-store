@@ -31,7 +31,6 @@ function Order() {
         owner: { ...input },
         items: [...newArr],
       };
-
       dispatch(fetchOrder(body));
     }
   };
