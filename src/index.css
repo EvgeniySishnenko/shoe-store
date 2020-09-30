@@ -263,8 +263,15 @@ section {
 }
 
 /* Bootstrap */
-.nav-link.active {
+.nav-link.active,
+button.nav-link.active {
   color: #ff0000;
+}
+button.nav-link {
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }
 
 h2,
@@ -577,4 +584,11 @@ h2,
 .btn-outline-primary:hover {
   background-color: #727e86;
   border-color: #727e86;
+}
+
+.success {
+  color: green;
+}
+.error {
+  color: red;
 }

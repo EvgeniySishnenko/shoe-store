@@ -1,12 +1,11 @@
 import React from "react";
-import Bestseller from "../../Components/Bestseller/Bestseller";
 import Catalog from "../../Components/Catalog/Catalog";
-function Home() {
+
+function CatalogPage() {
   return (
     <main className="container">
       <div className="row">
         <div className="col">
-          <Bestseller />
           <Catalog />
         </div>
       </div>
@@ -14,4 +13,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default CatalogPage;
